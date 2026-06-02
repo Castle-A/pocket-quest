@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pocket Quest — Maquettes</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --ocean: #2B7FE8;
+    --ocean-light: #5A9CF0;
+    --ocean-dark: #1A5BBF;
+    --mint: #34C759;
+    --mint-light: #6DD98A;
+    --orange: #FF9500;
+    --orange-light: #FFB340;
+    --coral: #FF3B5C;
+    --coral-light: #FF6B84;
+    --charcoal: #1C1C1E;
+    --graphite: #3A3A3C;
+    --silver: #8E8E93;
+    --light-gray: #F2F2F7;
+    --white: #FFFFFF;
+    --off-white: #FAFAFC;
+    --lavande: #AF52DE;
+    --sky: #5AC8FA;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Roboto', sans-serif;
+    background: #1a1a2e;
+    color: var(--charcoal);
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .screen-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+
+  .screen-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .screen-btn:hover, .screen-btn.active {
+    background: var(--ocean);
+    color: white;
+  }
+
+  .phone-frame {
+    width: 375px;
+    height: 812px;
+    background: var(--off-white);
+    border-radius: 40px;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+    position: relative;
+    border: 8px solid #333;
+  }
+
+  .notch {
+    width: 150px;
+    height: 30px;
+    background: #333;
+    border-radius: 0 0 20px 20px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  .screen {
+    display: none;
+    height: calc(100% - 30px);
+    overflow-y: auto;
+    padding-bottom: 100px;
+  }
+
+  .screen.active { display: block; }
+
+  /* ===== ONBOARDING ===== */
+  .onboarding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 40px 30px;
+    text-align: center;
+    background: linear-gradient(180deg, #E8F4FE 0%, var(--off-white) 100%);
+  }
+
+  .onboarding-emoji {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .onboarding h1 {
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+  }
+
+  .onboarding .subtitle {
+    font-size: 17px;
+    color: var(--graphite);
+    margin-bottom: 6px;
+  }
+
+  .onboarding .desc {
+    font-size: 15px;
+    color: var(--silver);
+    margin-bottom: 40px;
+    line-height: 1.4;
+  }
+
+  .page-dots {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--silver);
+    opacity: 0.3;
+  }
+
+  .dot.active {
+    background: var(--ocean);
+    opacity: 1;
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    background: var(--ocean);
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(43,127,232,0.3);
+    transition: all 0.2s;
+    margin-bottom: 16px;
+  }
+
+  .btn-primary:hover { background: var(--ocean-dark); }
+
+  .btn-skip {
+    background: none;
+    border: none;
+    color: var(--silver);
+    font-size: 15px;
+    cursor: pointer;
+    padding: 12px;
+  }
+
+  /* ===== HOME DASHBOARD ===== */
+  .home-header {
+    padding: 20px 20px 10px;
+    background: var(--ocean);
+    color: white;
+  }
+
+  .home-header .greeting {
+    font-size: 15px;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+
+  .home-header .username {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .streak-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    padding: 10px 16px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .streak-fire {
+    font-size: 20px;
+  }
+
+  .streak-text {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .streak-days {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  /* QP Card */
+  .qp-card {
+    margin: 16px 20px;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .qp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .qp-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--silver);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .qp-badge {
+    background: rgba(43,127,232,0.1);
+    color: var(--ocean);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .qp-circle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .qp-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(var(--ocean) 0deg, var(--ocean) 252deg, var(--light-gray) 252deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .qp-circle-inner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qp-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .qp-label {
+    font-size: 11px;
+    color: var(--silver);
+    font-weight: 500;
+  }
+
+  .qp-stats {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .qp-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .qp-stat-label {
+    font-size: 11px;
+    color: var(--silver);
+    margin-top: 2px;
+  }
+
+  /* Activity Cards */
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin: 0 20px 12px;
+  }
+
+  .activities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .activity-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .activity-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  .activity-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .activity-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .activity-qp {
+    font-size: 13px;
+    color: var(--ocean);
+    font-weight: 500;
+  }
+
+  .activity-desc {
+    font-size: 11px;
+    color: var(--silver);
+    margin-top: 2px;
+  }
+
+  /* Level Card */
+  .level-card {
+    margin: 0 20px 20px;
+    background: linear-gradient(135deg, var(--ocean) 0%, var(--ocean-light) 100%);
+    border-radius: 16px;
+    padding: 20px;
+    color: white;
+  }
+
+  .level-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .level-title {
+    font-size: 13px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .level-number {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .level-progress {
+    background: rgba(255,255,255,0.2);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .level-progress-bar {
+    background: white;
+    height: 100%;
+    border-radius: 4px;
+    width: 65%;
+  }
+
+  .level-text {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  /* ===== BOTTOM NAV ===== */
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--light-gray);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 34px;
+    z-index: 100;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    padding: 4px 12px;
+  }
+
+  .nav-icon {
+    font-size: 24px;
+  }
+
+  .nav-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--silver);
+  }
+
+  .nav-item.active .nav-label {
+    color: var(--ocean);
+  }
+
+  .nav-item.active .nav-icon {
+    filter: none;
+  }
+
+  .nav-item .nav-icon {
+    filter: grayscale(1);
+    opacity: 0.5;
+  }
+
+  /* ===== FOCUS MODE ===== */
+  .focus-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 40px 30px;
+    text-align: center;
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+  }
+
+  .focus-timer {
+    font-size: 64px;
+    font-weight: 200;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+  }
+
+  .focus-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid rgba(43,127,232,0.3);
+    border-top-color: var(--ocean);
+    animation: spin 3s linear infinite;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .focus-circle-inner {
+    font-size: 60px;
+  }
+
+  .focus-label {
+    font-size: 17px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .focus-qp-preview {
+    font-size: 15px;
+    color: var(--mint);
+    margin-bottom: 40px;
+  }
+
+  .btn-stop {
+    background: var(--coral);
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 24px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* ===== GUILD / SOCIAL ===== */
+  .guild-header {
+    padding: 20px;
+    background: var(--white);
+  }
+
+  .guild-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .guild-header p {
+    font-size: 15px;
+    color: var(--silver);
+  }
+
+  .guild-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 16px;
+    background: var(--white);
+  }
+
+  .guild-tab {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--light-gray);
+    color: var(--graphite);
+  }
+
+  .guild-tab.active {
+    background: var(--ocean);
+    color: white;
+  }
+
+  .friend-list {
+    padding: 0 20px;
+  }
+
+  .friend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .friend-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocean-light), var(--lavande));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .friend-info {
+    flex: 1;
+  }
+
+  .friend-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .friend-streak {
+    font-size: 13px;
+    color: var(--silver);
+  }
+
+  .friend-qp {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ocean);
+  }
+
+  /* ===== SETTINGS ===== */
+  .settings-header {
+    padding: 20px;
+    background: var(--white);
+  }
+
+  .settings-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .settings-section {
+    margin: 16px 20px;
+  }
+
+  .settings-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--silver);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .settings-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--white);
+    border-radius: 12px;
+    margin-bottom: 1px;
+  }
+
+  .settings-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .settings-icon {
+    font-size: 20px;
+  }
+
+  .settings-label {
+    font-size: 15px;
+    color: var(--charcoal);
+  }
+
+  .settings-value {
+    font-size: 15px;
+    color: var(--silver);
+  }
+
+  .toggle {
+    width: 44px;
+    height: 26px;
+    border-radius: 13px;
+    background: var(--mint);
+    position: relative;
+    cursor: pointer;
+  }
+
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: white;
+    top: 2px;
+    right: 2px;
+    transition: all 0.2s;
+  }
+
+  /* ===== PREMIUM PAYWALL ===== */
+  .premium-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 30px;
+    text-align: center;
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    min-height: 100%;
+  }
+
+  .premium-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+  }
+
+  .premium-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .premium-subtitle {
+    font-size: 15px;
+    opacity: 0.7;
+    margin-bottom: 30px;
+    line-height: 1.4;
+  }
+
+  .premium-features {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .premium-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .premium-feature-icon {
+    font-size: 24px;
+  }
+
+  .premium-feature-text {
+    font-size: 15px;
+    text-align: left;
+  }
+
+  .premium-prices {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .price-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.1);
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+
+  .price-option.selected {
+    border-color: var(--ocean);
+    background: rgba(43,127,232,0.1);
+  }
+
+  .price-period {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .price-amount {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .price-save {
+    font-size: 11px;
+    color: var(--mint);
+    font-weight: 600;
+  }
+
+  .btn-premium {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+
+  .premium-restore {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* ===== COACH IA ===== */
+  .coach-screen {
+    padding: 20px;
+    background: var(--off-white);
+    min-height: 100%;
+  }
+
+  .coach-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .coach-avatar {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+
+  .coach-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .coach-subtitle {
+    font-size: 15px;
+    color: var(--silver);
+  }
+
+  .chat-bubble {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--charcoal);
+  }
+
+  .chat-bubble.user {
+    background: var(--ocean);
+    color: white;
+    margin-left: 40px;
+    border-bottom-right-radius: 4px;
+  }
+
+  .chat-bubble.ai {
+    margin-right: 40px;
+    border-bottom-left-radius: 4px;
+  }
+
+  .coach-suggestions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .suggestion-chip {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--ocean);
+    background: none;
+    color: var(--ocean);
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  /* ===== STATS ===== */
+  .stats-screen {
+    padding: 20px;
+  }
+
+  .stats-header {
+    margin-bottom: 20px;
+  }
+
+  .stats-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .stats-period {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .period-btn {
+    padding: 6px 14px;
+    border-radius: 16px;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--light-gray);
+    color: var(--graphite);
+  }
+
+  .period-btn.active {
+    background: var(--ocean);
+    color: white;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .stat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .stat-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .stat-card-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ocean);
+  }
+
+  .stat-bar {
+    height: 6px;
+    background: var(--light-gray);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--ocean);
+  }
+
+  /* Scrollbar */
+  .screen::-webkit-scrollbar {
+    width: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 420px) {
+    .phone-frame {
+      width: 100%;
+      height: 100vh;
+      border-radius: 0;
+      border: none;
+    }
+    body {
+      padding: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="screen-selector">
+  <button class="screen-btn active" onclick="showScreen('onboarding')">Onboarding</button>
+  <button class="screen-btn" onclick="showScreen('home')">Home</button>
+  <button class="screen-btn" onclick="showScreen('focus')">Focus</button>
+  <button class="screen-btn" onclick="showScreen('guild')">Guild</button>
+  <button class="screen-btn" onclick="showScreen('coach')">Coach IA</button>
+  <button class="screen-btn" onclick="showScreen('stats')">Stats</button>
+  <button class="screen-btn" onclick="showScreen('settings')">Settings</button>
+  <button class="screen-btn" onclick="showScreen('premium')">Premium</button>
+</div>
+
+<div class="phone-frame">
+  <div class="notch"></div>
+
+  <!-- ONBOARDING -->
+  <div class="screen active" id="screen-onboarding">
+    <div class="onboarding">
+      <div class="onboarding-emoji">🐣</div>
+      <h1>POCKET QUEST</h1>
+      <p class="subtitle">"Gagne ton temps de vie"</p>
+      <p class="desc">Transforme ton quotidien en aventure.<br>Chaque effort te rapproche de tes objectifs.</p>
+      <div class="page-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <button class="btn-primary">Commencer →</button>
+      <button class="btn-skip">Passer l'onboarding</button>
+    </div>
+  </div>
+
+  <!-- HOME DASHBOARD -->
+  <div class="screen" id="screen-home">
+    <div class="home-header">
+      <div class="greeting">Bonjour 👋</div>
+      <div class="username">LeRoy</div>
+      <div class="streak-bar">
+        <span class="streak-fire">🔥</span>
+        <span class="streak-text">Streak de 15 jours !</span>
+        <span class="streak-days">x1.5 multiplicateur</span>
+      </div>
+    </div>
+
+    <div class="qp-card">
+      <div class="qp-header">
+        <span class="qp-title">Quest Points aujourd'hui</span>
+        <span class="qp-badge">+350 QP</span>
+      </div>
+      <div class="qp-circle-container">
+        <div class="qp-circle">
+          <div class="qp-circle-inner">
+            <div class="qp-value">350</div>
+            <div class="qp-label">/ 500 QP</div>
+          </div>
+        </div>
+      </div>
+      <div class="qp-stats">
+        <div>
+          <div class="qp-stat-value">45</div>
+          <div class="qp-stat-label">min scroll</div>
+        </div>
+        <div>
+          <div class="qp-stat-value">12</div>
+          <div class="qp-stat-label">activités</div>
+        </div>
+        <div>
+          <div class="qp-stat-value">5/7</div>
+          <div class="qp-stat-label">jours streak</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-title">Activités du jour</h3>
+    <div class="activities-grid">
+      <div class="activity-card">
+        <div class="activity-icon">🎯</div>
+        <div class="activity-name">Focus</div>
+        <div class="activity-qp">+50 QP / 25min</div>
+        <div class="activity-desc">Session de concentration</div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon">💪</div>
+        <div class="activity-name">Sport</div>
+        <div class="activity-qp">+40 QP / 30min</div>
+        <div class="activity-desc">Activité physique</div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon">🚶</div>
+        <div class="activity-name">Marche</div>
+        <div class="activity-qp">+30 QP / 10k pas</div>
+        <div class="activity-desc">Pas quotidiens</div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon">🧘</div>
+        <div class="activity-name">Méditation</div>
+        <div class="activity-qp">+25 QP / 10min</div>
+        <div class="activity-desc">Bien-être mental</div>
+      </div>
+    </div>
+
+    <div class="level-card">
+      <div class="level-header">
+        <span class="level-title">Niveau actuel</span>
+        <span class="level-number">12</span>
+      </div>
+      <div class="level-progress">
+        <div class="level-progress-bar"></div>
+      </div>
+      <div class="level-text">650 QP jusqu'au niveau 13</div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🎯</span>
+        <span class="nav-label">Quest</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">👥</span>
+        <span class="nav-label">Guild</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🤖</span>
+        <span class="nav-label">Coach</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOCUS MODE -->
+  <div class="screen" id="screen-focus">
+    <div class="focus-screen">
+      <div class="focus-circle">
+        <div class="focus-circle-inner">🌱</div>
+      </div>
+      <div class="focus-timer">25:00</div>
+      <div class="focus-label">Session de concentration</div>
+      <div class="focus-qp-preview">+50 QP à la fin 🏆</div>
+      <button class="btn-stop">Arrêter</button>
+    </div>
+  </div>
+
+  <!-- GUILD / SOCIAL -->
+  <div class="screen" id="screen-guild">
+    <div class="guild-header">
+      <h2>Guilde</h2>
+      <p>Progresse avec tes amis</p>
+    </div>
+    <div class="guild-tabs">
+      <button class="guild-tab active">Amis</button>
+      <button class="guild-tab">Classement</button>
+      <button class="guild-tab">Défis</button>
+    </div>
+    <div class="friend-list">
+      <div class="friend-item">
+        <div class="friend-avatar">👩</div>
+        <div class="friend-info">
+          <div class="friend-name">Lena</div>
+          <div class="friend-streak">🔥 23 jours · Niv. 15</div>
+        </div>
+        <div class="friend-qp">+420 QP</div>
+      </div>
+      <div class="friend-item">
+        <div class="friend-avatar">👨</div>
+        <div class="friend-info">
+          <div class="friend-name">Marc</div>
+          <div class="friend-streak">🔥 12 jours · Niv. 8</div>
+        </div>
+        <div class="friend-qp">+380 QP</div>
+      </div>
+      <div class="friend-item">
+        <div class="friend-avatar">👧</div>
+        <div class="friend-info">
+          <div class="friend-name">Sophie</div>
+          <div class="friend-streak">🔥 5 jours · Niv. 3</div>
+        </div>
+        <div class="friend-qp">+210 QP</div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🎯</span>
+        <span class="nav-label">Quest</span>
+      </div>
+      <div class="nav-item active">
+        <span class="nav-icon">👥</span>
+        <span class="nav-label">Guild</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🤖</span>
+        <span class="nav-label">Coach</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COACH IA -->
+  <div class="screen" id="screen-coach">
+    <div class="coach-screen">
+      <div class="coach-header">
+        <div class="coach-avatar">🤖</div>
+        <div class="coach-title">Coach Pocket</div>
+        <div class="coach-subtitle">Ton coach personnel bien-être</div>
+      </div>
+      <div class="chat-bubble ai">
+        Salut LeRoy ! 👊 Tu as fait 350 QP aujourd'hui, c'est super ! Tu sais que tu es à 50 QP de débloquer le thème "Ocean" ? Continue comme ça !
+      </div>
+      <div class="chat-bubble user">
+        Quelle activité me recommandes-tu ?
+      </div>
+      <div class="chat-bubble ai">
+        Tu n'as pas marché depuis 2 jours 🚶‍♂️. Une petite balade de 20 min te rapporterait 30 QP et te permettrait de maintenir ton streak ! Tu veux que je te rappelle à 18h ?
+      </div>
+      <div class="coach-suggestions">
+        <button class="suggestion-chip">💪 Sport</button>
+        <button class="suggestion-chip">🧘 Méditation</button>
+        <button class="suggestion-chip">🎯 Focus</button>
+        <button class="suggestion-chip">📊 Mes stats</button>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🎯</span>
+        <span class="nav-label">Quest</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">👥</span>
+        <span class="nav-label">Guild</span>
+      </div>
+      <div class="nav-item active">
+        <span class="nav-icon">🤖</span>
+        <span class="nav-label">Coach</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="screen" id="screen-stats">
+    <div class="stats-screen">
+      <div class="stats-header">
+        <h2>Statistiques</h2>
+      </div>
+      <div class="stats-period">
+        <button class="period-btn">Semaine</button>
+        <button class="period-btn active">Mois</button>
+        <button class="period-btn">Année</button>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-title">QP gagnés ce mois</span>
+          <span class="stat-card-value">8,450</span>
+        </div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width: 78%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-title">Temps de scroll gagné</span>
+          <span class="stat-card-value">141h</span>
+        </div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width: 65%; background: var(--mint)"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-title">Streak actuel</span>
+          <span class="stat-card-value">15 jours</span>
+        </div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width: 50%; background: var(--orange)"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-title">Niveau</span>
+          <span class="stat-card-value">12</span>
+        </div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width: 65%; background: var(--lavande)"></div></div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🎯</span>
+        <span class="nav-label">Quest</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">👥</span>
+        <span class="nav-label">Guild</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🤖</span>
+        <span class="nav-label">Coach</span>
+      </div>
+      <div class="nav-item active">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="screen" id="screen-settings">
+    <div class="settings-header">
+      <h2>Paramètres</h2>
+    </div>
+    <div class="settings-section">
+      <div class="settings-section-title">Général</div>
+      <div class="settings-item">
+        <div class="settings-item-left">
+          <span class="settings-icon">🌍</span>
+          <span class="settings-label">Langue</span>
+        </div>
+        <span class="settings-value">Français 🇫🇷</span>
+      </div>
+      <div class="settings-item">
+        <div class="settings-item-left">
+          <span class="settings-icon">🌙</span>
+          <span class="settings-label">Mode sombre</span>
+        </div>
+        <div class="toggle"></div>
+      </div>
+      <div class="settings-item">
+        <div class="settings-item-left">
+          <span class="settings-icon">🔔</span>
+          <span class="settings-label">Notifications</span>
+        </div>
+        <div class="toggle"></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-section-title">Santé</div>
+      <div class="settings-item">
+        <div class="settings-item-left">
+          <span class="settings-icon">❤️</span>
+          <span class="settings-label">Apple Health</span>
+        </div>
+        <span class="settings-value">Connecté ✅</span>
+      </div>
+      <div class="settings-item">
+        <div class="settings-item-left">
+          <span class="settings-icon">⌚</span>
+          <span class="settings-label">Apple Watch</span>
+        </div>
+        <span class="settings-value">Connecté ✅</span>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-section-title">Compte</div>
+      <div class="settings-item">
+        <div class="settings-item-left">
+          <span class="settings-icon">💎</span>
+          <span class="settings-label">Passer en Premium</span>
+        </div>
+        <span class="settings-value">→</span>
+      </div>
+      <div class="settings-item">
+        <div class="settings-item-left">
+          <span class="settings-icon">📊</span>
+          <span class="settings-label">Exporter mes données</span>
+        </div>
+        <span class="settings-value">→</span>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🎯</span>
+        <span class="nav-label">Quest</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">👥</span>
+        <span class="nav-label">Guild</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🤖</span>
+        <span class="nav-label">Coach</span>
+      </div>
+      <div class="nav-item active">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREMIUM PAYWALL -->
+  <div class="screen" id="screen-premium">
+    <div class="premium-screen">
+      <div class="premium-icon">💎</div>
+      <div class="premium-title">Pocket Quest Premium</div>
+      <div class="premium-subtitle">Débloque tout le potentiel de ton bien-être</div>
+      <div class="premium-features">
+        <div class="premium-feature">
+          <span class="premium-feature-icon">🤖</span>
+          <span class="premium-feature-text">Coach IA personnalisé</span>
+        </div>
+        <div class="premium-feature">
+          <span class="premium-feature-icon">📊</span>
+          <span class="premium-feature-text">Statistiques avancées</span>
+        </div>
+        <div class="premium-feature">
+          <span class="premium-feature-icon">🎨</span>
+          <span class="premium-feature-text">Thèmes exclusifs</span>
+        </div>
+        <div class="premium-feature">
+          <span class="premium-feature-icon">🏆</span>
+          <span class="premium-feature-text">Level system débloqué</span>
+        </div>
+        <div class="premium-feature">
+          <span class="premium-feature-icon">🚫</span>
+          <span class="premium-feature-text">Zéro publicité</span>
+        </div>
+      </div>
+      <div class="premium-prices">
+        <div class="price-option">
+          <div>
+            <div class="price-period">Mensuel</div>
+          </div>
+          <div class="price-amount">€5.99/mois</div>
+        </div>
+        <div class="price-option selected">
+          <div>
+            <div class="price-period">Annuel</div>
+            <div class="price-save">Économise 30%</div>
+          </div>
+          <div class="price-amount">€49.99/an</div>
+        </div>
+      </div>
+      <button class="btn-premium">Essai gratuit 7 jours 🎉</button>
+      <button class="premium-restore">Restaurer un achat</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.screen-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
