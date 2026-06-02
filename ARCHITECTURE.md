@@ -2,7 +2,7 @@
 
 > **Date** : 2026-02-06  
 > **Auteur** : Dev pour LeRoy  
-> **Décision** : **Flutter + NestJS + PostgreSQL + Firebase**
+> **Décision** : **Flutter + NestJS + PostgreSQL + Supabase**
 
 ---
 
@@ -45,7 +45,7 @@
 │                  Rate Limiting / Auth                         │
 │                                                              │
 │  ┌──────────┐ ┌──────────────┐ ┌─────────────────────────┐ │
-│  │REST API  │ │ WebSocket    │ │ FCM / APNs Push         │ │
+│  │REST API  │ │ WebSocket    │ │ Supabase Push Notifications (via OneSignal ou ntfy)         │ │
 │  │CRUD,     │ │ Real-time    │ │ Notification Service    │ │
 │  │Auth      │ │ Streaks,     │ │                         │ │
 │  │          │ │ Leaderboards │ │                         │ │
@@ -55,8 +55,8 @@
            ┌───────────────┼───────────────┐
            ▼               ▼               ▼
 ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐
-│ PostgreSQL   │  │ Redis        │  │ Firebase             │
-│ Données      │  │ Sessions     │  │ Auth + FCM + Storage │
+│ PostgreSQL   │  │ Redis        │  │ Supabase             │
+│ Données      │  │ Sessions     │  │ Auth + Storage + Realtime │
 │ principales  │  │ Cache        │  │                      │
 │              │  │ Leaderboards │  │                      │
 └──────────────┘  └──────────────┘  └──────────────────────┘
@@ -85,7 +85,7 @@ Riverpod est recommandé car :
 
 ```
 lib/
-├── main.dart                          # Entry point, Firebase init
+├── main.dart                          # Entry point, Supabase init
 ├── app/
 │   ├── app.dart                       # MaterialApp, themes, routes
 │   ├── routes/
@@ -208,7 +208,7 @@ src/
 ├── config/
 │   ├── database.config.ts
 │   ├── redis.config.ts
-│   └── firebase.config.ts
+│   └── supabase.config.ts
 ├── modules/
 │   ├── auth/
 │   │   ├── auth.module.ts
@@ -216,7 +216,7 @@ src/
 │   │   ├── auth.service.ts
 │   │   ├── strategies/
 │   │   │   ├── jwt.strategy.ts
-│   │   │   └── firebase.strategy.ts
+│   │   │   └── supabase.strategy.ts
 │   │   └── guards/
 │   │       └── jwt-auth.guard.ts
 │   ├── users/
@@ -282,9 +282,9 @@ src/
 | Backend | Google Cloud Run (serverless containers) | €0-20 |
 | Database | Supabase PostgreSQL (free tier) puis AWS RDS | €0-30 |
 | Cache | Upstash Redis (serverless) | €0-10 |
-| Auth | Firebase Auth (free tier) | €0 |
-| Storage | Firebase Storage (free tier) | €0 |
-| Push | Firebase Cloud Messaging (free) | €0 |
+| Auth | Supabase Auth (free tier) | €0 |
+| Storage | Supabase Storage (free tier) | €0 |
+| Push | Supabase Cloud Messaging (free) | €0 |
 | AI | OpenAI API (pay-as-you-go) | €10-50 |
 | Errors | Sentry (free tier) | €0 |
 | Analytics | PostHog Cloud (free tier) — EU hosting | €0 |
@@ -349,7 +349,7 @@ jobs:
 
 | Domaine | Mesure |
 |---|---|
-| Auth | Firebase Auth + JWT, refresh token rotation |
+| Auth | Supabase Auth + JWT, refresh token rotation |
 | API | Rate limiting (100 req/min/user), CORS, Helmet |
 | Data | Encryption at rest (PostgreSQL TDE), TLS in transit |
 | Health Data | Minimal collection, on-device processing when possible, GDPR-compliant storage in EU |
@@ -370,7 +370,7 @@ jobs:
 | Backend | NestJS + TypeScript |
 | Database | PostgreSQL 16 |
 | Cache | Redis 7 |
-| Auth | Firebase Auth |
+| Auth | Supabase Auth |
 | Push | FCM + APNs |
 | AI | OpenAI GPT-4o-mini |
 | Realtime | WebSocket (Socket.io) |

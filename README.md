@@ -78,4 +78,4 @@ pocket-quest/
 
 - LeRoy utilise IntelliJ + Codex pour le dev temps réel
 - Hermes (profil developer) pour l'archi/review/debug/planif
-- Stack probable: React Native (Expo) ou Flutter
+- Stack probable: Flutter + Supabase
