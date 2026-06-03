@@ -1,12 +1,29 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,jsx}'],
+module.exports = {
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
       fontFamily: {
         sans: ['Inter', 'SF Pro Display', '-apple-system', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        display: ['Orbitron', 'Inter', 'sans-serif'],
       },
       colors: {
+        void: '#0a0a0f',
+        abyss: '#0d0d14',
+        surface: '#14141f',
+        border: '#1e1e2e',
+        muted: '#8b8ba3',
+        accent: {
+          cyan: '#00f0ff',
+          magenta: '#ff00aa',
+          gold: '#ffd700',
+          green: '#00ff88',
+        },
         pastel: {
           green: '#A8E6CF',
           blue: '#A0C4FF',
@@ -15,23 +32,21 @@ export default {
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
-        'float-delayed': 'float 6s ease-in-out 2s infinite',
-        'breathe': 'breathe 3s ease-in-out infinite',
-        'pixel-pop': 'pixelPop 0.3s ease-out forwards',
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+        'scan-line': 'scanLine 8s linear infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-12px)' },
         },
-        breathe: {
-          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
-          '50%': { transform: 'scale(1.05)', opacity: '0.9' },
+        pulseGlow: {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '1' },
         },
-        pixelPop: {
-          '0%': { transform: 'scale(0)', opacity: '0' },
-          '80%': { transform: 'scale(1.1)' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
+        scanLine: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100vh)' },
         },
       },
     },
