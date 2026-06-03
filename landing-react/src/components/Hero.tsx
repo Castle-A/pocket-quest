@@ -2,26 +2,8 @@
 
 import { motion } from 'framer-motion'
 import Countdown from './Countdown'
+import CTA3D from './CTA3D'
 import { useI18n } from '@/i18n/context'
-
-/* Pixel art sparkle that appears on hover */
-function PixelSparkle() {
-  return (
-    <span className="inline-flex ml-1" aria-hidden="true">
-      <svg width="16" height="16" viewBox="0 0 8 8" style={{ imageRendering: 'pixelated' }}>
-        <rect x="3" y="3" width="2" height="2" fill="#2563EB" className="animate-pulse" />
-        <rect x="3" y="0" width="2" height="2" fill="#3B82F6" opacity="0.6" />
-        <rect x="3" y="6" width="2" height="2" fill="#3B82F6" opacity="0.6" />
-        <rect x="0" y="3" width="2" height="2" fill="#3B82F6" opacity="0.6" />
-        <rect x="6" y="3" width="2" height="2" fill="#3B82F6" opacity="0.6" />
-        <rect x="1" y="1" width="1" height="1" fill="#60A5FA" opacity="0.4" />
-        <rect x="6" y="1" width="1" height="1" fill="#60A5FA" opacity="0.4" />
-        <rect x="1" y="6" width="1" height="1" fill="#60A5FA" opacity="0.4" />
-        <rect x="6" y="6" width="1" height="1" fill="#60A5FA" opacity="0.4" />
-      </svg>
-    </span>
-  )
-}
 
 export default function Hero() {
   const { t } = useI18n()
@@ -39,10 +21,6 @@ export default function Hero() {
           backgroundSize: '64px 64px',
         }}
       />
-
-      {/* Soft blue halos */}
-      <div className="absolute pointer-events-none" style={{ top: '15%', left: '20%', width: '500px', height: '500px', borderRadius: '50%', background: 'rgba(59, 130, 246, 0.04)', filter: 'blur(120px)' }} />
-      <div className="absolute pointer-events-none" style={{ bottom: '10%', right: '15%', width: '400px', height: '400px', borderRadius: '50%', background: 'rgba(37, 99, 235, 0.03)', filter: 'blur(100px)' }} />
 
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center pt-32 pb-20">
         {/* Countdown */}
@@ -72,40 +50,18 @@ export default function Hero() {
           {t('hero.subtitle')}
         </motion.p>
 
-        {/* CTA — animated with pixel sparkle on hover */}
+        {/* CTA 3D */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.5 }}
+          className="mb-4"
         >
-          <motion.a
-            href="#cta"
-            className="group relative inline-flex items-center gap-2 px-8 py-3.5 bg-[#0B0B0C] text-white font-medium text-base rounded-lg no-underline overflow-hidden"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-          >
-            {/* Slide-in background on hover */}
-            <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-[#2563EB] to-[#1E40AF]"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: 0 }}
-              transition={{ type: 'tween', duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            />
-            <span className="relative z-10">{t('hero.cta')}</span>
-            <motion.span
-              className="relative z-10"
-              initial={{ opacity: 0, x: -8 }}
-              whileHover={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1, duration: 0.2 }}
-            >
-              →
-            </motion.span>
-          </motion.a>
+          <CTA3D label={t('hero.cta')} />
         </motion.div>
 
         {/* Scroll hint */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.5 }} className="mt-20">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.5 }} className="mt-16">
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
