@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import Countdown from './Countdown'
-import CTA3D from './CTA3D'
 import { useI18n } from '@/i18n/context'
 
 export default function Hero() {
@@ -50,18 +49,40 @@ export default function Hero() {
           {t('hero.subtitle')}
         </motion.p>
 
-        {/* CTA 3D */}
+        {/* CTA — original animated button */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="mb-4"
         >
-          <CTA3D label={t('hero.cta')} />
+          <motion.a
+            href="#cta"
+            className="group relative inline-flex items-center gap-2 px-8 py-3.5 bg-[#0B0B0C] text-white font-medium text-base rounded-lg no-underline overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+          >
+            {/* Slide-in background on hover */}
+            <motion.span
+              className="absolute inset-0 bg-gradient-to-r from-[#2563EB] to-[#1E40AF]"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: 0 }}
+              transition={{ type: 'tween', duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            />
+            <span className="relative z-10">{t('hero.cta')}</span>
+            <motion.span
+              className="relative z-10"
+              initial={{ opacity: 0, x: -8 }}
+              whileHover={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1, duration: 0.2 }}
+            >
+              →
+            </motion.span>
+          </motion.a>
         </motion.div>
 
         {/* Scroll hint */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.5 }} className="mt-16">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.5 }} className="mt-20">
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}

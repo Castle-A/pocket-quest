@@ -3,8 +3,10 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Zap, Shield, Gamepad2, BarChart3, Globe } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { useI18n } from '@/i18n/context'
+import dynamic from 'next/dynamic'
+
+const Features3D = dynamic(() => import('./Features3D'), { ssr: false })
 
 const features = [
   { icon: Zap, tKey: '1' },
@@ -20,8 +22,11 @@ export default function Features() {
   const isInView = useInView(ref, { amount: 0.2, once: false })
 
   return (
-    <section id="features" className="py-20 md:py-28 bg-white" ref={ref}>
-      <div className="max-w-[1100px] mx-auto px-6">
+    <section id="features" className="py-20 md:py-28 bg-white relative overflow-hidden" ref={ref}>
+      {/* 3D floating elements behind cards */}
+      <Features3D />
+
+      <div className="max-w-[1100px] mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

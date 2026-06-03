@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { I18nProvider } from '@/i18n/context'
 import PixelBackground from '@/components/PixelBackground'
+import Scroll3D from '@/components/Scroll3D'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.variable}>
       <body>
         <PixelBackground />
+        <Scroll3D />
         <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
