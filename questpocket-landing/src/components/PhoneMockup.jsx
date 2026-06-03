@@ -2,7 +2,14 @@ import { motion } from 'framer-motion';
 
 function PixelAvatar({ size = 24, color = '#A8E6CF' }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" style={{ imageRendering: 'pixelated' }}>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      style={{ imageRendering: 'pixelated' }}
+      aria-hidden="true"
+      role="presentation"
+    >
       <rect x="20" y="8" width="24" height="4" fill={color} />
       <rect x="16" y="12" width="32" height="4" fill={color} />
       <rect x="12" y="16" width="40" height="4" fill={color} />
@@ -48,10 +55,10 @@ const screens = {
             <p className="text-base font-black text-gray-900">12 Days</p>
           </div>
           <div className="flex gap-0.5">
-            {[...Array(7)].map((_, i) => (
+            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, idx) => (
               <div
-                key={i}
-                className={`w-2 h-2 rounded-sm ${i < 5 ? 'bg-[#A8E6CF]' : 'bg-gray-200'}`}
+                key={day}
+                className={`w-2 h-2 rounded-sm ${idx < 5 ? 'bg-[#A8E6CF]' : 'bg-gray-200'}`}
               />
             ))}
           </div>
@@ -62,8 +69,8 @@ const screens = {
           { title: 'Morning Walk', qp: '+10 QP', pct: 70, color: '#A8E6CF' },
           { title: 'No Social Media', qp: '+25 QP', pct: 40, color: '#A0C4FF' },
           { title: 'Read 30 min', qp: '+20 QP', pct: 90, color: '#FFF3B0' },
-        ].map((q, i) => (
-          <div key={i} className="bg-gray-50 rounded-xl p-2 border border-gray-100">
+        ].map((q) => (
+          <div key={q.title} className="bg-gray-50 rounded-xl p-2 border border-gray-100">
             <div className="flex justify-between mb-1">
               <span className="text-[8px] font-medium text-gray-700">{q.title}</span>
               <span className="text-[7px] font-bold" style={{ color: q.color }}>
@@ -97,9 +104,9 @@ const screens = {
           { icon: '📱', title: 'No Instagram', qp: '25 QP', color: '#A0C4FF' },
           { icon: '📖', title: 'Read a book', qp: '20 QP', color: '#FFF3B0' },
           { icon: '🧘', title: 'Meditate', qp: '15 QP', color: '#A8E6CF' },
-        ].map((q, i) => (
+        ].map((q) => (
           <div
-            key={i}
+            key={q.title}
             className="flex items-center gap-3 bg-gray-50 rounded-xl p-2.5 border border-gray-100"
           >
             <div

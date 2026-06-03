@@ -27,13 +27,13 @@ export default function Hero({ t }) {
 
             {/* Title */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] text-gray-900 mb-6">
-              {t.hero.title.split(' ').map((word, i) => (
-                <span key={i}>
-                  {i === 1 ? (
+              {t.hero.title.split(' ').map((word) => (
+                <span key={`word-${word.toLowerCase()}`}>
+                  {word.toLowerCase() === 'focus' ? (
                     <motion.span
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 + i * 0.1, duration: 0.6 }}
+                      transition={{ delay: 0.5, duration: 0.6 }}
                       className="inline-block bg-gradient-to-r from-pastel-blue via-pastel-green to-pastel-yellow bg-clip-text text-transparent"
                     >
                       {word}
@@ -42,7 +42,7 @@ export default function Hero({ t }) {
                     <motion.span
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
+                      transition={{ delay: 0.3, duration: 0.6 }}
                       className="inline-block"
                     >
                       {word}{' '}
@@ -68,7 +68,8 @@ export default function Hero({ t }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              <button type="button"
+              <button
+                type="button"
                 data-cta
                 onClick={() =>
                   document.getElementById('countdown')?.scrollIntoView({ behavior: 'smooth' })

@@ -88,7 +88,7 @@ export default function HowItWorks({ t }) {
 
         <div className="grid md:grid-cols-3 gap-12">
           {steps.map((step, i) => (
-            <StepCard key={i} step={step} index={i} inView={inView} />
+            <StepCard key={step.title} step={step} index={i} inView={inView} />
           ))}
         </div>
       </div>

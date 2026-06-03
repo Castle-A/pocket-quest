@@ -3,7 +3,14 @@ import { useEffect, useState } from 'react';
 
 const flagIcons = {
   en: (
-    <svg width="18" height="18" viewBox="0 0 640 480" className="rounded-sm">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 640 480"
+      className="rounded-sm"
+      aria-hidden="true"
+      role="presentation"
+    >
       <path fill="#FFF" d="M0 0h640v480H0" />
       <path
         fill="#CE1124"
@@ -13,14 +20,28 @@ const flagIcons = {
     </svg>
   ),
   fr: (
-    <svg width="18" height="18" viewBox="0 0 640 480" className="rounded-sm">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 640 480"
+      className="rounded-sm"
+      aria-hidden="true"
+      role="presentation"
+    >
       <path fill="#FFF" d="M0 0h640v480H0" />
       <path fill="#002395" d="M0 0h213.3v480H0" />
       <path fill="#ED2939" d="M426.7 0H640v480H426.7" />
     </svg>
   ),
   de: (
-    <svg width="18" height="18" viewBox="0 0 640 480" className="rounded-sm">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 640 480"
+      className="rounded-sm"
+      aria-hidden="true"
+      role="presentation"
+    >
       <path fill="#000" d="M0 0h640v160H0" />
       <path fill="#DD0000" d="M0 160h640v160H0" />
       <path fill="#FFCC00" d="M0 320h640v160H0" />
@@ -53,7 +74,8 @@ export default function Navbar({ lang, setLang }) {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-2"
           >
@@ -62,7 +84,8 @@ export default function Navbar({ lang, setLang }) {
           </button>
 
           <div className="hidden md:flex items-center gap-8">
-            <button type="button"
+            <button
+              type="button"
               onClick={() =>
                 document.getElementById('countdown')?.scrollIntoView({ behavior: 'smooth' })
               }
@@ -71,13 +94,17 @@ export default function Navbar({ lang, setLang }) {
               Features
             </button>
             <div className="relative group">
-              <button type="button" className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors">
+              <button
+                type="button"
+                className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              >
                 {flagIcons[lang]}
                 <span className="text-xs uppercase font-medium">{lang}</span>
               </button>
               <div className="absolute top-full right-0 mt-2 py-1 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[120px]">
                 {langs.map((l) => (
-                  <button type="button"
+                  <button
+                    type="button"
                     key={l}
                     onClick={() => setLang(l)}
                     className={`w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors ${lang === l ? 'text-pastel-blue bg-blue-50' : 'text-gray-600 hover:bg-gray-50'}`}
@@ -87,7 +114,8 @@ export default function Navbar({ lang, setLang }) {
                 ))}
               </div>
             </div>
-            <button type="button"
+            <button
+              type="button"
               data-cta
               onClick={() =>
                 document.getElementById('countdown')?.scrollIntoView({ behavior: 'smooth' })
@@ -98,12 +126,15 @@ export default function Navbar({ lang, setLang }) {
             </button>
           </div>
 
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden p-2 text-gray-500"
             aria-label="Menu"
           >
             <svg
+              aria-hidden="true"
+              role="presentation"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -137,7 +168,8 @@ export default function Navbar({ lang, setLang }) {
             exit={{ opacity: 0, y: -10 }}
             className="fixed top-16 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-6 py-6 space-y-4 md:hidden"
           >
-            <button type="button"
+            <button
+              type="button"
               onClick={() => {
                 document.getElementById('countdown')?.scrollIntoView({ behavior: 'smooth' });
                 setMobileOpen(false);
@@ -148,7 +180,8 @@ export default function Navbar({ lang, setLang }) {
             </button>
             <div className="flex gap-2 pt-2">
               {langs.map((l) => (
-                <button type="button"
+                <button
+                  type="button"
                   key={l}
                   onClick={() => setLang(l)}
                   className={`px-4 py-2 rounded-lg text-sm uppercase font-medium flex items-center gap-2 ${lang === l ? 'bg-blue-50 text-pastel-blue' : 'bg-gray-50 text-gray-500'}`}

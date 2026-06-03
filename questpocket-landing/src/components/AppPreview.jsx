@@ -48,12 +48,13 @@ export default function AppPreview({ t }) {
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Screen selector */}
           <div className="flex lg:flex-col gap-3">
-            {['Home', 'Quests'].map((label, i) => (
-              <button type="button"
-                key={i}
-                onClick={() => setActiveScreen(i)}
+            {['Home', 'Quests'].map((label, idx) => (
+              <button
+                type="button"
+                key={`${label.toLowerCase()}-tab`}
+                onClick={() => setActiveScreen(idx)}
                 className={`px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
-                  activeScreen === i
+                  activeScreen === idx
                     ? 'bg-gray-900 text-white shadow-lg'
                     : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-200'
                 }`}
@@ -98,9 +99,12 @@ export default function AppPreview({ t }) {
                     desc: 'Your avatar evolves with your habits. Take care of it by staying focused.',
                     color: '#FFF3B0',
                   },
-                ].map((feat, i) => (
+                ].map((feat) => (
                   <motion.div
-                    key={i}
+                    key={feat.title
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]+/g, '-')
+                      .replace(/^-|-$/g, '')}
                     initial={{ opacity: 0, x: 20 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ delay: 0.3 + i * 0.15 }}
@@ -132,9 +136,12 @@ export default function AppPreview({ t }) {
                     desc: 'Compete with friends. Accountability is the best motivator.',
                     color: '#FFF3B0',
                   },
-                ].map((feat, i) => (
+                ].map((feat) => (
                   <motion.div
-                    key={i}
+                    key={feat.title
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]+/g, '-')
+                      .replace(/^-|-$/g, '')}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.15 }}

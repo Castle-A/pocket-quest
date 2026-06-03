@@ -130,14 +130,16 @@ function PixelArt({ state = 'idle', color = '#A8E6CF', size = 1 }) {
 
   return (
     <svg
+      aria-hidden="true"
+      role="presentation"
       width={16 * PIXEL_SIZE * size}
       height={16 * PIXEL_SIZE * size}
       viewBox={`0 0 ${16 * PIXEL_SIZE} ${16 * PIXEL_SIZE}`}
       style={{ imageRendering: 'pixelated' }}
     >
-      {char.pixels.map(([x, y, w], i) => (
+      {char.pixels.map(([x, y, w]) => (
         <rect
-          key={i}
+          key={`pixel-${x}-${y}`}
           x={x * PIXEL_SIZE}
           y={y * PIXEL_SIZE}
           width={w * PIXEL_SIZE}

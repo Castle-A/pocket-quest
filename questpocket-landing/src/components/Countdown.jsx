@@ -78,7 +78,8 @@ export default function Countdown({ t }) {
       <p className="text-xs text-gray-400">
         {t.countdown?.subtitle || 'Early users get exclusive rewards'}
       </p>
-      <button type="button"
+      <button
+        type="button"
         data-cta
         className="px-6 py-3 bg-gradient-to-r from-pastel-blue/20 to-pastel-green/20 text-gray-700 font-semibold rounded-xl hover:shadow-lg hover:shadow-pastel-blue/10 hover:-translate-y-0.5 transition-all duration-300 text-sm border border-white/50"
       >
