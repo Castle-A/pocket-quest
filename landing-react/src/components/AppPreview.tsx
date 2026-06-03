@@ -1,43 +1,18 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { useGSAP } from '@gsap/react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
 import { Home, Swords } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-gsap.registerPlugin(ScrollTrigger)
-
 export default function AppPreview() {
   const sectionRef = useRef<HTMLElement>(null)
-  const phoneRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(sectionRef, { amount: 0.3, once: false })
   const [activeScreen, setActiveScreen] = useState<'home' | 'quests'>('home')
-
-  useGSAP(() => {
-    if (!sectionRef.current || !phoneRef.current) return
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 60%',
-        end: 'bottom 40%',
-        scrub: 1,
-      },
-    })
-
-    tl.fromTo(
-      phoneRef.current,
-      { scale: 0.9, opacity: 0.5 },
-      { scale: 1, opacity: 1, ease: 'none' }
-    )
-
-    return () => { tl.kill() }
-  }, { scope: sectionRef })
 
   return (
     <section className="py-20 md:py-28 bg-[#F9FAFB]" ref={sectionRef}>
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-[1100px] mx-auto px-6">
         <div className="text-center mb-16">
           <p className="text-xs font-medium text-[#2563EB] uppercase tracking-widest mb-3">App Preview</p>
           <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-[#0B0B0C]">
@@ -72,9 +47,11 @@ export default function AppPreview() {
             ))}
           </div>
 
-          {/* Phone mockup */}
-          <div
-            ref={phoneRef}
+          {/* Phone mockup — animated with Framer Motion */}
+          <motion.div
+            initial={{ scale: 0.92, opacity: 0.6 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.92, opacity: 0.6 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-[300px] md:w-[340px] bg-white rounded-[2.5rem] p-3 border border-[#3B82F6]/10 shadow-[0_30px_60px_rgba(0,0,0,0.02)]"
           >
             <div className="bg-[#F9FAFB] rounded-[2rem] overflow-hidden">
@@ -140,7 +117,7 @@ export default function AppPreview() {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
