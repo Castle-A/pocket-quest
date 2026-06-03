@@ -1,10 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-
-const flagIcons: Record<string, string> = { en: '🇬🇧', fr: '🇫🇷', de: '🇩🇪' }
-const langs = ['en', 'fr', 'de']
+import { Menu, X } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -17,63 +15,99 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const links = ['Features', 'About', 'FAQ']
+  const flags: Record<string, string> = { en: '🇬🇧', fr: '🇫🇷', de: '🇩🇪' }
+
   return (
     <>
-      <motion.nav
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.1 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? 'py-3 bg-void/80 backdrop-blur-xl border-b border-white/5' : 'py-5 bg-transparent'
-        }`}
+      <nav
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          scrolled ? 'py-3 bg-white/90 backdrop-blur-lg border-b border-black/[0.04]' : 'py-5 bg-transparent'
+        )}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2">
-            <span className="text-xl">🎮</span>
-            <span className="font-bold text-lg text-white">QuestPocket</span>
-          </button>
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-2 no-underline">
+            <span className="text-lg">🎮</span>
+            <span className="font-semibold text-[#0B0B0C] text-base">QuestPocket</span>
+          </a>
 
-          <div className="hidden md:flex items-center gap-8">
-            <button type="button" className="text-sm text-muted hover:text-white transition-colors">Features</button>
+          {/* Links — centered on desktop */}
+          <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+            {links.map((link) => (
+              <a
+                key={link}
+                href="#"
+                className="text-sm text-[#4B5563] hover:text-[#0B0B0C] transition-colors duration-150 no-underline"
+              >
+                {link}
+              </a>
+            ))}
+          </div>
+
+          {/* Right side — lang + CTA */}
+          <div className="hidden md:flex items-center gap-4">
             <div className="relative group">
-              <button type="button" className="flex items-center gap-1.5 text-sm text-muted hover:text-white transition-colors">
-                {flagIcons[lang]} <span className="text-xs uppercase">{lang}</span>
+              <button type="button" className="flex items-center gap-1.5 text-sm text-[#4B5563] hover:text-[#0B0B0C] transition-colors">
+                {flags[lang]} <span className="text-xs uppercase font-medium">{lang}</span>
               </button>
-              <div className="absolute top-full right-0 mt-2 py-1 bg-surface border border-border rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[120px]">
-                {langs.map((l) => (
+              <div className="absolute top-full right-0 mt-2 py-1 bg-white border border-black/[0.08] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[110px]">
+                {(['en', 'fr', 'de'] as const).map((l) => (
                   <button
-                    type="button"
                     key={l}
+                    type="button"
                     onClick={() => setLang(l)}
-                    className={`w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors ${lang === l ? 'text-accent-cyan bg-accent-cyan/5' : 'text-muted hover:bg-white/5'}`}
+                    className={cn(
+                      'w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors',
+                      lang === l ? 'text-[#2563EB] bg-[#2563EB]/5' : 'text-[#4B5563] hover:bg-[#F9FAFB]'
+                    )}
                   >
-                    {flagIcons[l]} <span className="text-xs uppercase">{l}</span>
+                    {flags[l]} <span className="text-xs uppercase">{l}</span>
                   </button>
                 ))}
               </div>
             </div>
-            <button type="button" className="px-5 py-2 bg-accent-cyan/10 text-accent-cyan text-sm font-semibold rounded-xl border border-accent-cyan/20 hover:bg-accent-cyan/20 transition-all duration-200">
+            <button
+              type="button"
+              className="px-5 py-2 bg-[#0B0B0C] text-white text-sm font-medium rounded-lg hover:bg-[#1E40AF] transition-colors duration-200"
+            >
               Get Started
             </button>
           </div>
 
-          <button type="button" onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 text-muted" aria-label="Menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              {mobileOpen ? (<><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></>) : (<><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></>)}
-            </svg>
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 text-[#4B5563]"
+            aria-label="Menu"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
+      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-void/95 backdrop-blur-xl border-b border-white/5 px-6 py-6 space-y-4 md:hidden">
-          <button type="button" onClick={() => setMobileOpen(false)} className="block text-muted hover:text-white text-base">Features</button>
-          <div className="flex gap-2 pt-2">
-            {langs.map((l) => (
-              <button type="button" key={l} onClick={() => { setLang(l); setMobileOpen(false) }}
-                className={`px-4 py-2 rounded-lg text-sm uppercase font-medium flex items-center gap-2 ${lang === l ? 'bg-accent-cyan/10 text-accent-cyan' : 'bg-white/5 text-muted'}`}
+        <div className="fixed top-14 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-b border-black/[0.06] px-6 py-6 space-y-4 md:hidden">
+          {links.map((link) => (
+            <a key={link} href="#" className="block text-[#4B5563] hover:text-[#0B0B0C] text-base no-underline" onClick={() => setMobileOpen(false)}>
+              {link}
+            </a>
+          ))}
+          <div className="flex gap-2 pt-3 border-t border-black/[0.06]">
+            {(['en', 'fr', 'de'] as const).map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => { setLang(l); setMobileOpen(false) }}
+                className={cn(
+                  'px-4 py-2 rounded-lg text-sm uppercase font-medium flex items-center gap-2',
+                  lang === l ? 'bg-[#2563EB]/5 text-[#2563EB]' : 'bg-[#F9FAFB] text-[#4B5563]'
+                )}
               >
-                {flagIcons[l]} {l}
+                {flags[l]} {l}
               </button>
             ))}
           </div>

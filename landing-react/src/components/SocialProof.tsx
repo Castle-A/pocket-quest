@@ -1,0 +1,35 @@
+'use client'
+
+import { Smartphone, Brain, Database, Gamepad2, Shield, Zap } from 'lucide-react'
+
+const techs = [
+  { name: 'Flutter', Icon: Smartphone },
+  { name: 'GPT-4o', Icon: Brain },
+  { name: 'PostgreSQL', Icon: Database },
+  { name: 'Firebase', Icon: Zap },
+  { name: 'NestJS', Icon: Shield },
+  { name: 'React', Icon: Gamepad2 },
+]
+
+export default function SocialProof() {
+  return (
+    <section className="py-16 bg-white border-y border-black/[0.04]">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <p className="text-xs font-medium text-[#9CA3AF] uppercase tracking-widest text-center mb-10">
+          Powered by
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14">
+          {techs.map(({ name, Icon }) => (
+            <div
+              key={name}
+              className="flex items-center gap-2.5 grayscale opacity-40 hover:grayscale-0 hover:opacity-90 transition-all duration-300 cursor-default"
+            >
+              <Icon className="w-5 h-5 text-[#4B5563]" strokeWidth={1.5} />
+              <span className="text-sm font-medium text-[#4B5563]">{name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

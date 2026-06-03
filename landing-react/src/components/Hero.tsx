@@ -1,96 +1,112 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Countdown from './Countdown'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-void">
-      {/* Background grid */}
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
+      {/* Subtle grid background */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0,240,255,0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,240,255,0.3) 1px, transparent 1px)
+            linear-gradient(to right, rgba(37, 99, 235, 0.02) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(37, 99, 235, 0.02) 1px, transparent 1px)
           `,
-          backgroundSize: '60px 60px',
+          backgroundSize: '64px 64px',
         }}
       />
 
-      {/* Radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent-cyan/5 blur-[120px]" />
-      <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-magenta/5 blur-[100px]" />
+      {/* Soft blue halos */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: '15%',
+          left: '20%',
+          width: '500px',
+          height: '500px',
+          borderRadius: '50%',
+          background: 'rgba(59, 130, 246, 0.04)',
+          filter: 'blur(120px)',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          bottom: '10%',
+          right: '15%',
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'rgba(37, 99, 235, 0.03)',
+          filter: 'blur(100px)',
+        }}
+      />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* Beta badge */}
+      {/* Content — centered, constrained */}
+      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center pt-32 pb-20">
+        {/* Countdown badge — above H1 */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent-cyan/20 bg-accent-cyan/5 mb-8"
+          transition={{ delay: 0.1, duration: 0.5 }}
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse" />
-          <span className="text-xs font-mono text-accent-cyan uppercase tracking-widest">Now in Beta</span>
+          <Countdown />
         </motion.div>
 
-        {/* Title */}
+        {/* H1 — big, black, tight leading */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] mb-6"
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-medium tracking-tight leading-[1.1] text-[#0B0B0C] mb-6"
         >
-          <span className="text-white">Gamify</span>{' '}
-          <span className="text-white">your</span>{' '}
-          <span className="bg-gradient-to-r from-accent-cyan via-accent-magenta to-accent-gold bg-clip-text text-transparent text-glow-cyan">
-            focus
-          </span>
-          <br />
-          <span className="text-white/60">time</span>
+          Gamify your{' '}
+          <span className="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] bg-clip-text text-transparent">focus</span>{' '}
+          time
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-lg md:text-xl text-muted max-w-lg mx-auto mb-10 leading-relaxed"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-lg md:text-xl text-[#4B5563] leading-relaxed mb-10 max-w-xl mx-auto"
         >
           Build real-world rewards by using your phone less.
         </motion.p>
 
-        {/* CTA */}
+        {/* CTA — black → blue navy on hover */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
         >
           <button
             type="button"
-            className="group relative px-8 py-4 bg-accent-cyan text-void font-bold text-lg rounded-xl glow-cyan hover:scale-105 transition-all duration-300"
+            className="px-8 py-3.5 bg-[#0B0B0C] text-white font-medium text-base rounded-lg transition-all duration-200 hover:bg-[#1E40AF] hover:shadow-lg hover:shadow-[#1E40AF]/10 active:scale-[0.98]"
           >
             Join the Waitlist
-            <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </button>
         </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
-          >
-            <div className="w-1 h-2 rounded-full bg-accent-cyan/60" />
-          </motion.div>
-        </motion.div>
       </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          className="w-5 h-8 rounded-full border-2 border-[#9CA3AF]/30 flex justify-center pt-1.5"
+        >
+          <div className="w-0.5 h-1.5 rounded-full bg-[#9CA3AF]" />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }
