@@ -107,7 +107,7 @@ export default function AppPreview({ t }) {
                       .replace(/^-|-$/g, '')}
                     initial={{ opacity: 0, x: 20 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.3 + i * 0.15 }}
+                    transition={{ delay: 0.4 }}
                     className="flex gap-4"
                   >
                     <div
@@ -144,7 +144,7 @@ export default function AppPreview({ t }) {
                       .replace(/^-|-$/g, '')}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.15 }}
+                    transition={{ delay: 0.15 }}
                     className="flex gap-4"
                   >
                     <div
