@@ -8,45 +8,41 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'SF Pro Display', '-apple-system', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-        display: ['Orbitron', 'Inter', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'SF Mono', 'monospace'],
       },
       colors: {
-        void: '#0a0a0f',
-        abyss: '#0d0d14',
-        surface: '#14141f',
-        border: '#1e1e2e',
-        muted: '#8b8ba3',
-        accent: {
-          cyan: '#00f0ff',
-          magenta: '#ff00aa',
-          gold: '#ffd700',
-          green: '#00ff88',
-        },
-        pastel: {
-          green: '#A8E6CF',
-          blue: '#A0C4FF',
-          yellow: '#FFF3B0',
-        },
+        ink: '#0B0B0C',
+        body: '#4B5563',
+        subtle: '#9CA3AF',
+        surface: '#F9FAFB',
+        stroke: 'rgba(0,0,0,0.08)',
+        blue: { royal: '#2563EB', tech: '#3B82F6', navy: '#1E40AF' },
+      },
+      maxWidth: { site: '1200px' },
+      spacing: { 18: '4.5rem', 22: '5.5rem', 30: '7.5rem' },
+      borderRadius: { card: '8px' },
+      boxShadow: {
+        card: '0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02)',
+        float: '0 30px 60px rgba(0,0,0,0.02)',
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
-        'scan-line': 'scanLine 8s linear infinite',
+        'pixel-drop': 'pixelDrop 1s ease-in-out infinite',
+        'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+        'shimmer': 'shimmer 2s linear infinite',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-12px)' },
+        pixelDrop: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(2px)' },
         },
-        pulseGlow: {
+        pulseSoft: {
           '0%, 100%': { opacity: '0.4' },
           '50%': { opacity: '1' },
         },
-        scanLine: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(100vh)' },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         },
       },
     },
