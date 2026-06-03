@@ -1,20 +1,28 @@
-import { useState, useEffect } from 'react';
-import { translations } from './translations';
+import { useEffect, useState } from 'react';
+import AppPreview from './components/AppPreview';
 import CursorAura from './components/CursorAura';
-import PixelCharacter from './components/PixelCharacter';
-import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
-import AppPreview from './components/AppPreview';
-import Footer from './components/Footer';
+import Navbar from './components/Navbar';
+import PixelCharacter from './components/PixelCharacter';
+import { translations } from './translations';
 
 export default function App() {
   const [lang, setLang] = useState(() => {
-    try { return localStorage.getItem('qp-lang') || 'en'; } catch { return 'en'; }
+    try {
+      return localStorage.getItem('qp-lang') || 'en';
+    } catch {
+      return 'en';
+    }
   });
 
   useEffect(() => {
-    try { localStorage.setItem('qp-lang', lang); } catch { /* noop */ }
+    try {
+      localStorage.setItem('qp-lang', lang);
+    } catch {
+      /* noop */
+    }
     document.documentElement.lang = lang;
   }, [lang]);
 

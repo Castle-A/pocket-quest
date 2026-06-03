@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function useInView(threshold = 0.3) {
   const ref = useRef(null);
@@ -7,7 +7,15 @@ function useInView(threshold = 0.3) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } }, { threshold });
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setInView(true);
+          obs.disconnect();
+        }
+      },
+      { threshold },
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, [threshold]);
@@ -34,8 +42,10 @@ function StepCard({ step, index, inView }) {
       >
         {icons[index]}
       </motion.div>
-      <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white mb-3"
-        style={{ background: colors[index] }}>
+      <div
+        className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white mb-3"
+        style={{ background: colors[index] }}
+      >
         {index + 1}
       </div>
       <h3 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h3>
@@ -48,9 +58,18 @@ export default function HowItWorks({ t }) {
   const { ref, inView } = useInView();
 
   const steps = [
-    { title: t.howItWorks?.step1 || 'Set your focus goals', desc: t.howItWorks?.step1Desc || 'Choose your daily targets' },
-    { title: t.howItWorks?.step2 || 'Stay off your phone', desc: t.howItWorks?.step2Desc || 'Complete quests to earn QP' },
-    { title: t.howItWorks?.step3 || 'Earn rewards', desc: t.howItWorks?.step3Desc || 'Redeem points for real rewards' },
+    {
+      title: t.howItWorks?.step1 || 'Set your focus goals',
+      desc: t.howItWorks?.step1Desc || 'Choose your daily targets',
+    },
+    {
+      title: t.howItWorks?.step2 || 'Stay off your phone',
+      desc: t.howItWorks?.step2Desc || 'Complete quests to earn QP',
+    },
+    {
+      title: t.howItWorks?.step3 || 'Earn rewards',
+      desc: t.howItWorks?.step3Desc || 'Redeem points for real rewards',
+    },
   ];
 
   return (
@@ -61,7 +80,9 @@ export default function HowItWorks({ t }) {
           animate={inView ? { opacity: 1 } : {}}
           className="text-center mb-16"
         >
-          <p className="text-sm font-semibold text-pastel-blue uppercase tracking-widest mb-3">How It Works</p>
+          <p className="text-sm font-semibold text-pastel-blue uppercase tracking-widest mb-3">
+            How It Works
+          </p>
           <h2 className="text-4xl md:text-5xl font-black text-gray-900">Simple. Effective. Fun.</h2>
         </motion.div>
 

@@ -7,8 +7,12 @@ export default function Footer({ t }) {
           <span className="font-bold text-sm text-gray-400">QuestPocket</span>
         </div>
         <div className="flex items-center gap-8">
-          <button className="text-xs text-gray-400 hover:text-gray-600 transition-colors">{t.footer?.privacy || 'Privacy'}</button>
-          <button className="text-xs text-gray-400 hover:text-gray-600 transition-colors">{t.footer?.terms || 'Terms'}</button>
+          <button type="button" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
+            {t.footer?.privacy || 'Privacy'}
+          </button>
+          <button type="button" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
+            {t.footer?.terms || 'Terms'}
+          </button>
         </div>
         <p className="text-xs text-gray-300">{t.footer?.copyright || '© 2026 QuestPocket'}</p>
       </div>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PhoneMockup from './PhoneMockup';
 
 function useInView(threshold = 0.2) {
@@ -8,7 +8,15 @@ function useInView(threshold = 0.2) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } }, { threshold });
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setInView(true);
+          obs.disconnect();
+        }
+      },
+      { threshold },
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, [threshold]);
@@ -28,16 +36,20 @@ export default function AppPreview({ t }) {
           animate={inView ? { opacity: 1 } : {}}
           className="text-center mb-16"
         >
-          <p className="text-sm font-semibold text-pastel-green uppercase tracking-widest mb-3">App Preview</p>
+          <p className="text-sm font-semibold text-pastel-green uppercase tracking-widest mb-3">
+            App Preview
+          </p>
           <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">See it in action</h2>
-          <p className="text-lg text-gray-500 max-w-lg mx-auto">A glimpse into your future focus companion.</p>
+          <p className="text-lg text-gray-500 max-w-lg mx-auto">
+            A glimpse into your future focus companion.
+          </p>
         </motion.div>
 
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Screen selector */}
           <div className="flex lg:flex-col gap-3">
             {['Home', 'Quests'].map((label, i) => (
-              <button
+              <button type="button"
                 key={i}
                 onClick={() => setActiveScreen(i)}
                 className={`px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
@@ -69,12 +81,23 @@ export default function AppPreview({ t }) {
 
           {/* Feature list */}
           <div className="flex-1 space-y-6">
-            {activeScreen === 0 ? (
-              <>
-                {[
-                  { title: 'Streak System', desc: 'Build momentum with daily streaks. The longer you focus, the more you earn.', color: '#A8E6CF' },
-                  { title: 'Live Progress', desc: 'See your quests update in real-time as you complete activities.', color: '#A0C4FF' },
-                  { title: 'Pixel Companion', desc: 'Your avatar evolves with your habits. Take care of it by staying focused.', color: '#FFF3B0' },
+            {activeScreen === 0
+              ? [
+                  {
+                    title: 'Streak System',
+                    desc: 'Build momentum with daily streaks. The longer you focus, the more you earn.',
+                    color: '#A8E6CF',
+                  },
+                  {
+                    title: 'Live Progress',
+                    desc: 'See your quests update in real-time as you complete activities.',
+                    color: '#A0C4FF',
+                  },
+                  {
+                    title: 'Pixel Companion',
+                    desc: 'Your avatar evolves with your habits. Take care of it by staying focused.',
+                    color: '#FFF3B0',
+                  },
                 ].map((feat, i) => (
                   <motion.div
                     key={i}
@@ -83,20 +106,32 @@ export default function AppPreview({ t }) {
                     transition={{ delay: 0.3 + i * 0.15 }}
                     className="flex gap-4"
                   >
-                    <div className="w-2 h-2 rounded-full mt-2 shrink-0" style={{ background: feat.color }} />
+                    <div
+                      className="w-2 h-2 rounded-full mt-2 shrink-0"
+                      style={{ background: feat.color }}
+                    />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">{feat.title}</h4>
                       <p className="text-sm text-gray-500">{feat.desc}</p>
                     </div>
                   </motion.div>
-                ))}
-              </>
-            ) : (
-              <>
-                {[
-                  { title: 'Daily Quests', desc: 'Walk, read, meditate — every healthy action earns Quest Points.', color: '#A8E6CF' },
-                  { title: 'Smart Difficulty', desc: 'Quests adapt to your level. Start small, grow big.', color: '#A0C4FF' },
-                  { title: 'Social Challenges', desc: 'Compete with friends. Accountability is the best motivator.', color: '#FFF3B0' },
+                ))
+              : [
+                  {
+                    title: 'Daily Quests',
+                    desc: 'Walk, read, meditate — every healthy action earns Quest Points.',
+                    color: '#A8E6CF',
+                  },
+                  {
+                    title: 'Smart Difficulty',
+                    desc: 'Quests adapt to your level. Start small, grow big.',
+                    color: '#A0C4FF',
+                  },
+                  {
+                    title: 'Social Challenges',
+                    desc: 'Compete with friends. Accountability is the best motivator.',
+                    color: '#FFF3B0',
+                  },
                 ].map((feat, i) => (
                   <motion.div
                     key={i}
@@ -105,15 +140,16 @@ export default function AppPreview({ t }) {
                     transition={{ delay: i * 0.15 }}
                     className="flex gap-4"
                   >
-                    <div className="w-2 h-2 rounded-full mt-2 shrink-0" style={{ background: feat.color }} />
+                    <div
+                      className="w-2 h-2 rounded-full mt-2 shrink-0"
+                      style={{ background: feat.color }}
+                    />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">{feat.title}</h4>
                       <p className="text-sm text-gray-500">{feat.desc}</p>
                     </div>
                   </motion.div>
                 ))}
-              </>
-            )}
           </div>
         </div>
       </div>

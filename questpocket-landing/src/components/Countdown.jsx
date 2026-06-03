@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const TARGET_DATE = new Date();
 TARGET_DATE.setMonth(TARGET_DATE.getMonth() + 1);
 
 function getTimeLeft() {
-  const diff = TARGET_DATE - new Date();
+  const diff = TARGET_DATE - Date.now();
   if (diff <= 0) return { mo: 0, w: 0, d: 0, h: 0, m: 0, s: 0 };
   return {
     mo: Math.floor(diff / (1000 * 60 * 60 * 24 * 30)),
@@ -78,7 +78,7 @@ export default function Countdown({ t }) {
       <p className="text-xs text-gray-400">
         {t.countdown?.subtitle || 'Early users get exclusive rewards'}
       </p>
-      <button
+      <button type="button"
         data-cta
         className="px-6 py-3 bg-gradient-to-r from-pastel-blue/20 to-pastel-green/20 text-gray-700 font-semibold rounded-xl hover:shadow-lg hover:shadow-pastel-blue/10 hover:-translate-y-0.5 transition-all duration-300 text-sm border border-white/50"
       >

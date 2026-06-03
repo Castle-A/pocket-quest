@@ -68,9 +68,11 @@ export default function Hero({ t }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              <button
+              <button type="button"
                 data-cta
-                onClick={() => document.getElementById('countdown')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() =>
+                  document.getElementById('countdown')?.scrollIntoView({ behavior: 'smooth' })
+                }
                 className="group relative px-8 py-4 bg-gray-900 text-white font-semibold text-lg rounded-2xl hover:shadow-2xl hover:shadow-pastel-blue/20 hover:-translate-y-1 transition-all duration-300 active:translate-y-0"
               >
                 {t.hero.cta}
@@ -97,9 +99,11 @@ export default function Hero({ t }) {
             className="relative flex justify-center items-center"
           >
             {/* Background blob */}
-            <div className="absolute w-[500px] h-[500px] rounded-full opacity-30"
+            <div
+              className="absolute w-[500px] h-[500px] rounded-full opacity-30"
               style={{
-                background: 'radial-gradient(circle, rgba(160,196,255,0.3) 0%, rgba(168,230,207,0.2) 50%, transparent 70%)',
+                background:
+                  'radial-gradient(circle, rgba(160,196,255,0.3) 0%, rgba(168,230,207,0.2) 50%, transparent 70%)',
               }}
             />
 

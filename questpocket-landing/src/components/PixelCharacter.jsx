@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 /* ---- Pixel Art Character (16x16 grid) ---- */
 const PIXEL_SIZE = 4;
@@ -9,44 +9,117 @@ const CHARACTERS = {
   idle: {
     pixels: [
       // Head
-      [4,2,8],[3,3,10],[2,4,12],[2,5,4],[7,5,2],[10,5,4],
-      [2,6,4],[7,6,2],[10,6,4],[2,7,12],[3,8,10],[4,9,8],
+      [4, 2, 8],
+      [3, 3, 10],
+      [2, 4, 12],
+      [2, 5, 4],
+      [7, 5, 2],
+      [10, 5, 4],
+      [2, 6, 4],
+      [7, 6, 2],
+      [10, 6, 4],
+      [2, 7, 12],
+      [3, 8, 10],
+      [4, 9, 8],
       // Body
-      [5,10,6],[4,11,8],[4,12,8],[5,13,6],
+      [5, 10, 6],
+      [4, 11, 8],
+      [4, 12, 8],
+      [5, 13, 6],
       // Legs
-      [4,14,3],[9,14,3],[4,15,3],[9,15,3],
+      [4, 14, 3],
+      [9, 14, 3],
+      [4, 15, 3],
+      [9, 15, 3],
     ],
     blinkAt: 3000,
   },
   happy: {
     pixels: [
-      [4,2,8],[3,3,10],[2,4,12],[2,5,4],[8,5,2],[10,5,4],
-      [2,6,4],[8,6,2],[10,6,4],[2,7,12],[3,8,10],[4,9,8],
-      [5,10,6],[4,11,8],[4,12,8],[5,13,6],
-      [4,14,3],[9,14,3],[4,15,3],[9,15,3],
+      [4, 2, 8],
+      [3, 3, 10],
+      [2, 4, 12],
+      [2, 5, 4],
+      [8, 5, 2],
+      [10, 5, 4],
+      [2, 6, 4],
+      [8, 6, 2],
+      [10, 6, 4],
+      [2, 7, 12],
+      [3, 8, 10],
+      [4, 9, 8],
+      [5, 10, 6],
+      [4, 11, 8],
+      [4, 12, 8],
+      [5, 13, 6],
+      [4, 14, 3],
+      [9, 14, 3],
+      [4, 15, 3],
+      [9, 15, 3],
     ],
     blinkAt: null,
   },
   excited: {
     pixels: [
-      [4,1,8],[3,2,10],[2,3,12],[2,4,4],[8,4,2],[10,4,4],
-      [2,5,4],[7,5,1],[9,5,1],[10,5,4],[2,6,12],[3,7,10],[4,8,8],
-      [5,9,6],[4,10,8],[3,11,10],[3,12,10],[4,13,8],
-      [3,14,3],[10,14,3],[3,15,3],[10,15,3],
+      [4, 1, 8],
+      [3, 2, 10],
+      [2, 3, 12],
+      [2, 4, 4],
+      [8, 4, 2],
+      [10, 4, 4],
+      [2, 5, 4],
+      [7, 5, 1],
+      [9, 5, 1],
+      [10, 5, 4],
+      [2, 6, 12],
+      [3, 7, 10],
+      [4, 8, 8],
+      [5, 9, 6],
+      [4, 10, 8],
+      [3, 11, 10],
+      [3, 12, 10],
+      [4, 13, 8],
+      [3, 14, 3],
+      [10, 14, 3],
+      [3, 15, 3],
+      [10, 15, 3],
       // Arms up
-      [1,8,2],[1,9,2],[12,8,2],[13,9,2],
+      [1, 8, 2],
+      [1, 9, 2],
+      [12, 8, 2],
+      [13, 9, 2],
     ],
     blinkAt: null,
   },
   level2: {
     // Bigger, more detailed
     pixels: [
-      [4,2,8],[3,3,10],[2,4,12],[2,5,4],[7,5,2],[10,5,4],
-      [2,6,4],[7,6,2],[10,6,4],[2,7,12],[3,8,10],[4,9,8],
-      [5,10,6],[4,11,8],[4,12,8],[5,13,6],
-      [4,14,3],[9,14,3],[4,15,3],[9,15,3],
+      [4, 2, 8],
+      [3, 3, 10],
+      [2, 4, 12],
+      [2, 5, 4],
+      [7, 5, 2],
+      [10, 5, 4],
+      [2, 6, 4],
+      [7, 6, 2],
+      [10, 6, 4],
+      [2, 7, 12],
+      [3, 8, 10],
+      [4, 9, 8],
+      [5, 10, 6],
+      [4, 11, 8],
+      [4, 12, 8],
+      [5, 13, 6],
+      [4, 14, 3],
+      [9, 14, 3],
+      [4, 15, 3],
+      [9, 15, 3],
       // Crown
-      [5,0,6],[4,1,1],[6,1,1],[8,1,1],[10,1,1],
+      [5, 0, 6],
+      [4, 1, 1],
+      [6, 1, 1],
+      [8, 1, 1],
+      [10, 1, 1],
     ],
     blinkAt: 4000,
   },
@@ -115,16 +188,22 @@ export default function PixelCharacter() {
 
   // CTA hover reaction
   useEffect(() => {
-    const handleCtaEnter = () => { setIsHoveringCta(true); setState('excited'); };
-    const handleCtaLeave = () => { setIsHoveringCta(false); };
-    document.querySelectorAll('[data-cta]').forEach(el => {
+    const handleCtaEnter = () => {
+      setIsHoveringCta(true);
+      setState('excited');
+    };
+    const handleCtaLeave = () => {
+      setIsHoveringCta(false);
+    };
+    document.querySelectorAll('[data-cta]').forEach((el) => {
       el.addEventListener('mouseenter', handleCtaEnter);
       el.addEventListener('mouseleave', handleCtaLeave);
     });
-    return () => document.querySelectorAll('[data-cta]').forEach(el => {
-      el.removeEventListener('mouseenter', handleCtaEnter);
-      el.removeEventListener('mouseleave', handleCtaLeave);
-    });
+    return () =>
+      document.querySelectorAll('[data-cta]').forEach((el) => {
+        el.removeEventListener('mouseenter', handleCtaEnter);
+        el.removeEventListener('mouseleave', handleCtaLeave);
+      });
   }, []);
 
   // Blink timer
@@ -195,9 +274,7 @@ export default function PixelCharacter() {
               animate={{ scale: 1 }}
               className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
               style={{
-                background: level >= 3
-                  ? 'linear-gradient(135deg, #A0C4FF, #A8E6CF)'
-                  : '#A8E6CF',
+                background: level >= 3 ? 'linear-gradient(135deg, #A0C4FF, #A8E6CF)' : '#A8E6CF',
               }}
             >
               {level}

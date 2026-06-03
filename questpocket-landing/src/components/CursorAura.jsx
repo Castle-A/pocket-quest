@@ -23,7 +23,7 @@ export default function CursorAura() {
 
     // Smooth follow with lerp
     const animate = () => {
-      setPos(prev => ({
+      setPos((prev) => ({
         x: prev.x + (targetRef.current.x - prev.x) * 0.08,
         y: prev.y + (targetRef.current.y - prev.y) * 0.08,
       }));
@@ -31,7 +31,7 @@ export default function CursorAura() {
     };
 
     window.addEventListener('mousemove', handleMove, { passive: true });
-    document.querySelectorAll('[data-cta]').forEach(el => {
+    document.querySelectorAll('[data-cta]').forEach((el) => {
       el.addEventListener('mouseenter', handleCtaEnter);
       el.addEventListener('mouseleave', handleCtaLeave);
     });
