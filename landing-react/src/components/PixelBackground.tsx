@@ -4,6 +4,7 @@ import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float } from '@react-three/drei'
 import * as THREE from 'three'
+import dynamic from 'next/dynamic'
 
 // Pixel art shapes as tiny 3D boxes
 const PIXEL_SHAPES = [
@@ -95,7 +96,7 @@ function Scene() {
   )
 }
 
-export default function PixelBackground() {
+function PixelBackgroundInner() {
   return (
     <div className="fixed inset-0 z-0" style={{ filter: 'blur(60px)', opacity: 0.35, pointerEvents: 'none' }}>
       <Canvas
@@ -109,3 +110,5 @@ export default function PixelBackground() {
     </div>
   )
 }
+
+export default dynamic(() => Promise.resolve(PixelBackgroundInner), { ssr: false })
