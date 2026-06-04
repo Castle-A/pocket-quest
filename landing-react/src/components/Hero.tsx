@@ -3,22 +3,16 @@
 import { motion } from 'framer-motion'
 import Countdown from './Countdown'
 import { useI18n } from '@/i18n/context'
-import { useParallax } from '@/hooks/useScroll'
 
 export default function Hero() {
   const { t } = useI18n()
-  const { ref: parallaxRef, offset: parallaxOffset } = useParallax()
 
   return (
-    <section
-      ref={parallaxRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white"
-    >
-      {/* Subtle grid with parallax */}
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
+      {/* Subtle grid */}
       <div
-        className="absolute inset-0 pointer-events-none parallax-slow"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          transform: `translateY(${parallaxOffset * 0.3}px)`,
           backgroundImage: `
             linear-gradient(to right, rgba(37, 99, 235, 0.03) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(37, 99, 235, 0.03) 1px, transparent 1px)
@@ -28,7 +22,7 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center pt-32 pb-20">
-        {/* Countdown — fade in */}
+        {/* Countdown */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -37,13 +31,12 @@ export default function Hero() {
           <Countdown />
         </motion.div>
 
-        {/* H1 — parallax + reveal */}
+        {/* H1 */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-medium tracking-tight leading-[1.1] text-[#0B0B0C] mb-6"
-          style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }}
         >
           {t('hero.title.1')}{' '}
           <span className="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] bg-clip-text text-transparent">
@@ -62,7 +55,7 @@ export default function Hero() {
           {t('hero.subtitle')}
         </motion.p>
 
-        {/* CTA — premium magnetic button */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,7 +65,6 @@ export default function Hero() {
             href="#cta"
             className="btn-magnetic group relative inline-flex items-center gap-2 px-8 py-3.5 bg-[#0B0B0C] text-white font-medium text-base rounded-lg no-underline overflow-hidden"
           >
-            {/* Slide-in gradient on hover */}
             <span className="absolute inset-0 bg-gradient-to-r from-[#2563EB] to-[#1E40AF] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
             <span className="relative z-10">{t('hero.cta')}</span>
             <span className="relative z-10 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 delay-100">

@@ -26,75 +26,37 @@
   }
 }
 
-/* Scroll-driven reveal animations */
+/* Scroll-driven reveal animations — CSS only, no JS needed */
 @layer components {
   .reveal {
+    animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .reveal-left {
+    animation: revealLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
-    transform: translateX(-60px);
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .reveal-left.visible {
-    opacity: 1;
-    transform: translateX(0);
   }
 
   .reveal-right {
+    animation: revealRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
-    transform: translateX(60px);
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .reveal-right.visible {
-    opacity: 1;
-    transform: translateX(0);
   }
 
   .reveal-scale {
+    animation: revealScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
-    transform: scale(0.85);
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .reveal-scale.visible {
-    opacity: 1;
-    transform: scale(1);
   }
 
   /* Stagger delays */
-  .stagger-1 { transition-delay: 0.05s; }
-  .stagger-2 { transition-delay: 0.1s; }
-  .stagger-3 { transition-delay: 0.15s; }
-  .stagger-4 { transition-delay: 0.2s; }
-  .stagger-5 { transition-delay: 0.25s; }
-  .stagger-6 { transition-delay: 0.3s; }
-  .stagger-7 { transition-delay: 0.35s; }
-  .stagger-8 { transition-delay: 0.4s; }
-
-  /* Parallax container */
-  .parallax-slow {
-    will-change: transform;
-    transition: transform 0.1s linear;
-  }
-  .parallax-medium {
-    will-change: transform;
-    transition: transform 0.1s linear;
-  }
-  .parallax-fast {
-    will-change: transform;
-    transition: transform 0.1s linear;
-  }
+  .stagger-1 { animation-delay: 0.05s; }
+  .stagger-2 { animation-delay: 0.1s; }
+  .stagger-3 { animation-delay: 0.15s; }
+  .stagger-4 { animation-delay: 0.2s; }
+  .stagger-5 { animation-delay: 0.25s; }
+  .stagger-6 { animation-delay: 0.3s; }
+  .stagger-7 { animation-delay: 0.35s; }
+  .stagger-8 { animation-delay: 0.4s; }
 
   /* Premium card hover */
   .card-hover {
@@ -119,5 +81,49 @@
   }
   .btn-magnetic:active {
     transform: translateY(0) scale(0.98);
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes revealRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes revealScale {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

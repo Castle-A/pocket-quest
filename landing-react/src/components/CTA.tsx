@@ -3,13 +3,11 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useI18n } from '@/i18n/context'
-import { useScrollReveal } from '@/hooks/useScroll'
 
 export default function CTA() {
   const { t } = useI18n()
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
-  const reveal = useScrollReveal(0.15)
 
   const handleSubmit = () => {
     if (email.includes('@')) {
@@ -19,22 +17,22 @@ export default function CTA() {
   }
 
   return (
-    <section id="cta" className="py-20 md:py-28 bg-white relative overflow-hidden" ref={reveal.ref}>
+    <section id="cta" className="py-20 md:py-28 bg-white relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#2563EB]/[0.03] blur-[120px] pointer-events-none" />
 
       <div className="max-w-2xl mx-auto px-6 text-center relative z-10">
-        <p className={`text-xs font-medium text-[#2563EB] uppercase tracking-widest mb-3 reveal ${reveal.isVisible ? 'visible' : ''}`}>
+        <p className="text-xs font-medium text-[#2563EB] uppercase tracking-widest mb-3 reveal">
           {t('cta.label')}
         </p>
-        <h2 className={`text-3xl md:text-5xl font-medium tracking-tight text-[#0B0B0C] mb-6 reveal stagger-1 ${reveal.isVisible ? 'visible' : ''}`}>
+        <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-[#0B0B0C] mb-6 reveal stagger-1">
           {t('cta.title')}
         </h2>
-        <p className={`text-[#4B5563] text-lg mb-10 max-w-md mx-auto reveal stagger-2 ${reveal.isVisible ? 'visible' : ''}`}>
+        <p className="text-[#4B5563] text-lg mb-10 max-w-md mx-auto reveal stagger-2">
           {t('cta.subtitle')}
         </p>
 
         {!submitted ? (
-          <div className={`flex flex-col sm:flex-row gap-3 max-w-md mx-auto reveal stagger-3 ${reveal.isVisible ? 'visible' : ''}`}>
+          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto reveal stagger-3">
             <input
               type="email"
               value={email}

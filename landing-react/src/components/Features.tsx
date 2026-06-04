@@ -2,7 +2,6 @@
 
 import { Zap, Shield, Gamepad2, BarChart3, Globe } from 'lucide-react'
 import { useI18n } from '@/i18n/context'
-import { useScrollReveal } from '@/hooks/useScroll'
 import dynamic from 'next/dynamic'
 
 const Features3D = dynamic(() => import('./Features3D'), { ssr: false })
@@ -17,19 +16,14 @@ const features = [
 
 export default function Features() {
   const { t } = useI18n()
-  const titleReveal = useScrollReveal(0.2)
 
   return (
     <section id="features" className="py-20 md:py-28 bg-white relative overflow-hidden">
-      {/* 3D floating elements behind cards */}
       <Features3D />
 
       <div className="max-w-[1100px] mx-auto px-6 relative z-10">
-        {/* Section title — reveal */}
-        <div
-          ref={titleReveal.ref}
-          className={`text-center mb-16 reveal ${titleReveal.isVisible ? 'visible' : ''}`}
-        >
+        {/* Section title */}
+        <div className="text-center mb-16 reveal">
           <p className="text-xs font-medium text-[#2563EB] uppercase tracking-widest mb-3">
             {t('features.label')}
           </p>
@@ -38,16 +32,14 @@ export default function Features() {
           </h2>
         </div>
 
-        {/* Row 1 — 3 cards with stagger */}
+        {/* Row 1 — 3 cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
           {features.slice(0, 3).map((feat, i) => {
             const Icon = feat.icon
-            const cardReveal = useScrollReveal(0.15)
             return (
               <div
                 key={feat.tKey}
-                ref={cardReveal.ref}
-                className={`card-hover reveal stagger-${i + 1} ${cardReveal.isVisible ? 'visible' : ''} bg-white border border-black/[0.08] rounded-lg p-6 md:p-8`}
+                className={`card-hover reveal stagger-${i + 1} bg-white border border-black/[0.08] rounded-lg p-6 md:p-8`}
               >
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
@@ -66,16 +58,14 @@ export default function Features() {
           })}
         </div>
 
-        {/* Row 2 — 2 cards with stagger */}
+        {/* Row 2 — 2 cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {features.slice(3).map((feat, i) => {
             const Icon = feat.icon
-            const cardReveal = useScrollReveal(0.15)
             return (
               <div
                 key={feat.tKey}
-                ref={cardReveal.ref}
-                className={`card-hover reveal stagger-${i + 4} ${cardReveal.isVisible ? 'visible' : ''} bg-white border border-black/[0.08] rounded-lg p-6 md:p-8`}
+                className={`card-hover reveal stagger-${i + 4} bg-white border border-black/[0.08] rounded-lg p-6 md:p-8`}
               >
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"

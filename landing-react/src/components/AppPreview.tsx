@@ -4,28 +4,24 @@ import { useRef, useState } from 'react'
 import { Home, Swords } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useI18n } from '@/i18n/context'
-import { useScrollReveal, useParallax } from '@/hooks/useScroll'
 
 export default function AppPreview() {
   const { t } = useI18n()
-  const sectionReveal = useScrollReveal(0.1)
-  const mockupReveal = useScrollReveal(0.2)
-  const { ref: parallaxRef, offset } = useParallax()
   const [activeScreen, setActiveScreen] = useState<'home' | 'quests'>('home')
 
   return (
-    <section id="preview" className="py-20 md:py-28 bg-[#F9FAFB] relative overflow-hidden" ref={sectionReveal.ref}>
+    <section id="preview" className="py-20 md:py-28 bg-[#F9FAFB] relative overflow-hidden">
       <div className="max-w-[1100px] mx-auto px-6">
-        {/* Title — reveal */}
-        <div className={`text-center mb-16 reveal ${sectionReveal.isVisible ? 'visible' : ''}`}>
+        {/* Title */}
+        <div className="text-center mb-16 reveal">
           <p className="text-xs font-medium text-[#2563EB] uppercase tracking-widest mb-3">{t('preview.label')}</p>
           <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-[#0B0B0C]">{t('preview.title')}</h2>
           <p className="text-[#4B5563] mt-4 max-w-lg mx-auto">{t('preview.subtitle')}</p>
         </div>
 
-        <div className="flex flex-col items-center" ref={parallaxRef}>
+        <div className="flex flex-col items-center">
           {/* Tab switcher */}
-          <div className="flex gap-1 mb-8 bg-white rounded-lg p-1 border border-black/[0.06]">
+          <div className="flex gap-1 mb-8 bg-white rounded-lg p-1 border border-black/[0.06] reveal stagger-1">
             {([
               { key: 'home' as const, label: t('preview.home'), Icon: Home },
               { key: 'quests' as const, label: t('preview.quests'), Icon: Swords },
@@ -45,12 +41,8 @@ export default function AppPreview() {
             ))}
           </div>
 
-          {/* Phone mockup — reveal-scale + parallax */}
-          <div
-            ref={mockupReveal.ref}
-            className={`reveal-scale ${mockupReveal.isVisible ? 'visible' : ''} relative w-[300px] md:w-[340px]`}
-            style={{ transform: mockupReveal.isVisible ? `translateY(${offset * 0.3}px)` : 'scale(0.85)' }}
-          >
+          {/* Phone mockup */}
+          <div className="reveal-scale stagger-2 relative w-[300px] md:w-[340px]">
             <div className="bg-white rounded-[2.5rem] p-3 border border-[#3B82F6]/10 shadow-[0_30px_60px_rgba(0,0,0,0.04)]">
               <div className="bg-[#F9FAFB] rounded-[2rem] overflow-hidden">
                 {/* Status bar */}
